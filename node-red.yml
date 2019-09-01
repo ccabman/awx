@@ -1,1 +1,18 @@
-
+---
+- hosts: work
+  remote_user: radmin
+  become: yes
+  roles:
+    - geerlingguy.nodejs
+  tasks:
+    - name: upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+    - name: ensure a list of packages installed
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - vim
+        - nmap
